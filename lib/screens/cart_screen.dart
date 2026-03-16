@@ -16,7 +16,9 @@ class CartScreen extends StatelessWidget {
           context: context,
           builder: (context) => AlertDialog(
             title: const Text('Xóa sản phẩm'),
-            content: const Text('Bạn có muốn xóa không?'),
+            content: const Text(
+              'Bạn có muốn xóa sản phẩm này khỏi giỏ hàng không?',
+            ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),

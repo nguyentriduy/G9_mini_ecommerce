@@ -5,6 +5,7 @@ import '../models/cart_item.dart';
 import '../providers/cart_provider.dart';
 import '../providers/order_provider.dart';
 import '../utils/formatters.dart';
+import 'home_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({
@@ -65,12 +66,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: const Text('Đặt hàng thành công'),
-        content: const Text('Đơn hàng đã được ghi nhận.'),
+        content: const Text(
+          'Đơn hàng đã được ghi nhận và chuyển về trang chủ.',
+        ),
         actions: [
           FilledButton(
             onPressed: () {
               Navigator.of(dialogContext).pop();
-              Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (_) => const HomeScreen()),
+                (route) => false,
+              );
             },
             child: const Text('Tiếp tục'),
           ),

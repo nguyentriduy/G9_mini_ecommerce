@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Mini E-commerce',
         theme: AppTheme.lightTheme,
-        home: ProductDetailScreen(product: _demoProduct),
+        home: const HomeScreen(),
       ),
     );
   }
