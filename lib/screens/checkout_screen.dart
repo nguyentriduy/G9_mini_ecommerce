@@ -5,12 +5,13 @@ import '../models/cart_item.dart';
 import '../providers/cart_provider.dart';
 import '../providers/order_provider.dart';
 import '../utils/formatters.dart';
+import 'home_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({
     super.key,
-    this.items = const [],
-    this.clearCartOnSuccess = true,
+    required this.items,
+    required this.clearCartOnSuccess,
   });
 
   final List<CartItem> items;
@@ -72,6 +73,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           FilledButton(
             onPressed: () {
               Navigator.of(dialogContext).pop();
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (_) => const HomeScreen()),
+                (route) => false,
+              );
             },
             child: const Text('Tiếp tục'),
           ),
