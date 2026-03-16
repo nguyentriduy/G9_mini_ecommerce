@@ -38,6 +38,29 @@ class CartScreen extends StatelessWidget {
     }
   }
 
+  Future<bool> _confirmDismiss(BuildContext context) async {
+    return await showDialog<bool>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Xóa sản phẩm'),
+            content: const Text(
+              'Bạn có muốn xóa sản phẩm này khỏi giỏ hàng không?',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('Hủy'),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: const Text('Xóa'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
+
   Future<void> _handleCheckout(
     BuildContext context,
     List<CartItem> items,
@@ -70,10 +93,8 @@ class CartScreen extends StatelessWidget {
               return Dismissible(
                 key: ValueKey(item.id),
                 direction: DismissDirection.endToStart,
-                confirmDismiss: (_) async {
-                  await _confirmDelete(context, item);
-                  return false;
-                },
+                confirmDismiss: (_) => _confirmDismiss(context),
+                onDismissed: (_) => cart.removeItem(item.id),
                 background: Container(
                   decoration: BoxDecoration(
                     color: const Color(0xFFDC2626),
